@@ -8,7 +8,6 @@ IMG_SIZE = 224
 BATCH_SIZE = 32
 EPOCHS = 15  
 
-print(data_dir)
 train_dataset = tf.keras.utils.image_dataset_from_directory(
     data_dir, 
     validation_split=0.2, 
@@ -78,6 +77,8 @@ history = model.fit(
     epochs=EPOCHS
 )
 print("Finish")
+
+model.save('./model/step1.h5')
 
 acc = history.history['accuracy']
 val_acc = history.history['val_accuracy']
