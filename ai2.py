@@ -39,6 +39,8 @@ data_augmentation = tf.keras.Sequential([
     tf.keras.layers.RandomRotation(0.2),
 ])
 
+preprocress_input = tf.keras.applications.mobilenet_v2.preprocess_input
+
 base_model = tf.keras.applications.MobileNetV2(
     input_shape=(IMG_SIZE, IMG_SIZE, 3),
     include_top=False,
@@ -49,6 +51,7 @@ base_model.trainable = False
 
 inputs = tf.keras.Input(shape=(IMG_SIZE, IMG_SIZE, 3))
 x = data_augmentation(inputs)
+x = preprocress_input(x)
 x = base_model(x, training=False) 
 x = tf.keras.layers.GlobalAveragePooling2D()(x)
 x = tf.keras.layers.Dropout(0.2)(x)
@@ -73,6 +76,8 @@ history = model.fit(
     epochs=EPOCHS
 )
 print("Finish")
+
+model.save('./model/step2.h5')
 
 acc = history.history['accuracy']
 val_acc = history.history['val_accuracy']
