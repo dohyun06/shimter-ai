@@ -5,8 +5,8 @@ import os
 
 data_dir = './dataset/step1'
 IMG_SIZE = 224 
-BATCH_SIZE = 32
-EPOCHS = 15  
+BATCH_SIZE = 64
+EPOCHS = 100
 
 train_dataset = tf.keras.utils.image_dataset_from_directory(
     data_dir, 
@@ -78,7 +78,7 @@ history = model.fit(
 )
 print("Finish")
 
-model.save('./model/step1.h5')
+model.save('./model/step1.keras')
 
 acc = history.history['accuracy']
 val_acc = history.history['val_accuracy']
@@ -98,7 +98,7 @@ plt.plot(val_loss, label='Validation Loss')
 plt.legend(loc='upper right')
 plt.title('Training and Validation Loss')
 plt.show()
-
+'''
 import glob
 
 image_paths = glob.glob(os.path.join('./dataset/step3/*.jpg'))
@@ -120,3 +120,4 @@ for test_image_path in image_paths:
     print(f"File: {file_name} -> Class Prediction: '{predicted_class}' ({confidence:.2f}%)")
     
 print('Finish to test')
+'''
